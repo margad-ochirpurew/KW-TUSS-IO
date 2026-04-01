@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TUSS.IO: KW Mongolia-ийн өдөр тутмын хүндрэлийг шийдэх нь</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Manrope', sans-serif; background-color: #f9fafb; color: #111827; }
+        .kw-red { color: #B40101; }
+        .bg-kw-red { background-color: #B40101; }
+        .tuss-blue { color: #0052FF; }
+        .bg-tuss-blue { background-color: #0052FF; }
+        
+        .pain-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid #e5e7eb;
+        }
+        .pain-card:hover {
+            border-left-color: #B40101;
+            background-color: #fff;
+            transform: translateX(8px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .solution-highlight {
+            background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+            border: 1px solid #dbeafe;
+        }
+        .comparison-tag {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Chosen Palette: KW Red for problems, TUSS Blue for solutions. High contrast for clarity. -->
+    
+    <!-- Application Structure Plan:
+         1. Problem Definition: Focusing on "Current Difficulties" (Manual review, inconsistent contracts, vague terms).
+         2. The "A vs B" Engine: Visualizing how TUSS.IO takes a messy agent contract (A) and fixes it based on Law (B).
+         3. Subjectivity Module: Highlighting how "vague language" leads to disputes and how TUSS.IO detects it.
+         4. Operational Dashboard: Showing time-saving metrics and internal rule compliance.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="bg-kw-red text-white font-bold px-2 py-0.5 rounded">KW</div>
+                <span class="text-gray-400">×</span>
+                <span class="text-tuss-blue font-black tracking-tighter text-lg">TUSS.IO</span>
+            </div>
+            <div class="text-xs font-bold text-gray-500 uppercase tracking-widest">Борлуулалтын Танилцуулга</div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 py-12 space-y-20">
+
+        <!-- Header -->
+        <section class="space-y-4">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight">
+                Бичиг баримтын "толгойны өвчин"-ийг <br>
+                <span class="text-tuss-blue underline decoration-kw-red/30">дижитал системээр</span> арилгах нь
+            </h1>
+            <p class="text-lg text-slate-600 max-w-2xl">
+                KW-ийн комплаенс менежер болон брокеруудад өдөр бүр тулгардаг гар ажиллагаа, утгын зөрчил, ойлгомжгүй байдлыг TUSS.IO-ийн "A vs B" алгоритм хэрхэн шийдэх вэ?
+            </p>
+        </section>
+
+        <!-- Current Difficulties Section -->
+        <section class="grid lg:grid-cols-2 gap-12 items-start">
+            <div class="space-y-6">
+                <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                    <span class="bg-kw-red/10 p-2 rounded-lg text-kw-red">⚠️</span>
+                    Өнөөдөр тулгарч буй хүндрэлүүд
+                </h2>
+                
+                <div class="space-y-4">
+                    <div class="pain-card p-5 bg-gray-50 rounded-r-xl" onclick="showSolution('manual')">
+                        <h3 class="font-bold text-slate-800">1. Гараар хянах асар их ачаалал</h3>
+                        <p class="text-sm text-slate-500 mt-1">Олон зуун агентын гэрээ тус бүрийг хуулийн заалттай тулгаж уншихад цаг их зарцуулдаг.</p>
+                    </div>
+                    <div class="pain-card p-5 bg-gray-50 rounded-r-xl" onclick="showSolution('inconsistent')">
+                        <h3 class="font-bold text-slate-800">2. Гэрээний загварын дур зоргоороо өөрчлөлт</h3>
+                        <p class="text-sm text-slate-500 mt-1">Агентууд гэрээний заалтыг өөрсдөө өөрчилж бичсэнээс болж маргаан үүсдэг.</p>
+                    </div>
+                    <div class="pain-card p-5 bg-gray-50 rounded-r-xl" onclick="showSolution('vague')">
+                        <h3 class="font-bold text-slate-800">3. "Субъектив" буюу тодорхойгүй найруулга</h3>
+                        <p class="text-sm text-slate-500 mt-1">"Аль болох хурдан", "Боломжит хэмжээгээр" гэх мэт үгс харилцагчтай үл ойлцол үүсгэдэг.</p>
+                    </div>
+                    <div class="pain-card p-5 bg-gray-50 rounded-r-xl" onclick="showSolution('logic')">
+                        <h3 class="font-bold text-slate-800">4. Процесс ба Журмын зөрүү</h3>
+                        <p class="text-sm text-slate-500 mt-1">Дотоод журамдаа "заавал бүртгэнэ" гэсэн ч бодит ажил дээр бүртгэгддэггүй логик алдаа.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Solution Display -->
+            <div class="bg-white rounded-3xl shadow-xl border border-gray-100 p-8 min-h-[450px] flex flex-col transition-all duration-500" id="solution-panel">
+                <div id="solution-initial" class="flex flex-col items-center justify-center h-full text-center space-y-4 opacity-100">
+                    <div class="text-6xl">💡</div>
+                    <h3 class="text-xl font-bold text-slate-800">TUSS.IO хэрхэн шийдэх вэ?</h3>
+                    <p class="text-slate-500">Зүүн талын хүндрэлүүдээс сонгож <br>технологийн шийдлийг харна уу.</p>
+                </div>
+
+                <div id="solution-content" class="hidden animate-in fade-in slide-in-from-bottom-4 space-y-6">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-tuss-blue text-white text-[10px] font-bold px-2 py-1 rounded">SOLUTION</span>
+                        <h3 id="sol-title" class="text-xl font-extrabold text-slate-900"></h3>
+                    </div>
+                    <p id="sol-desc" class="text-slate-600 leading-relaxed"></p>
+                    
+                    <div class="bg-blue-50 p-6 rounded-2xl border border-blue-100 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="comparison-tag bg-white text-slate-400">Бичиг баримт (A)</span>
+                            <span class="text-tuss-blue font-bold">VS</span>
+                            <span class="comparison-tag bg-tuss-blue text-white">Стандарт (B)</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Агентын төсөл</div>
+                            <div class="text-[10px] text-tuss-blue uppercase font-bold tracking-wider">Хууль/Журам</div>
+                            <div id="val-a" class="p-3 bg-white rounded-lg border border-gray-200 text-xs italic text-red-500"></div>
+                            <div id="val-b" class="p-3 bg-white rounded-lg border border-blue-200 text-xs text-slate-700"></div>
+                        </div>
+                        <p id="sol-result" class="text-xs font-semibold text-tuss-blue bg-white p-2 rounded text-center border border-blue-100"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Showcase: Subjectivity & Logic -->
+        <section class="bg-slate-900 rounded-[2rem] p-8 md:p-16 text-white">
+            <div class="max-w-3xl space-y-6">
+                <h2 class="text-3xl font-bold">Чанарын нарийвчилсан шинжилгээ</h2>
+                <p class="text-slate-400">Бид зөвхөн "байгаа эсэхийг" шалгадаггүй. Бид тухайн бичиг баримтын **найруулгын чанар** болон **логик алдааг** шүүдэг.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mt-12">
+                <div class="space-y-4 p-6 bg-white/5 rounded-2xl border border-white/10">
+                    <div class="text-2xl">🔍</div>
+                    <h4 class="font-bold">Субъектив байдал</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">"Агент харилцагчид шуурхай зөвлөнө" гэдэг өгүүлбэр дэх "Шуурхай" гэх субъектив үгийг илрүүлж, "24 цагийн дотор" гэх мэт хэмжигдэхүйц утгаар солихыг санал болгоно.</p>
+                </div>
+                <div class="space-y-4 p-6 bg-white/5 rounded-2xl border border-white/10">
+                    <div class="text-2xl">⚖️</div>
+                    <h4 class="font-bold">Логик алдаа</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">Гэрээний 3-р заалт нь 12-р заалттайгаа утгын хувьд зөрчилдөж байгааг (жишээ нь: төлбөрийн нөхцөл) алгоритм автоматаар "улаан"-аар тэмдэглэнэ.</p>
+                </div>
+                <div class="space-y-4 p-6 bg-white/5 rounded-2xl border border-white/10">
+                    <div class="text-2xl">🌫️</div>
+                    <h4 class="font-bold">Тодорхойгүй байдал</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">"Боломжтой тохиолдолд" гэх мэт хариуцлагаас зугтах боломж олгосон, тодорхойгүй найруулгыг шүүж, "хэн, хэзээ, юу" гэдгийг тодорхой болгоно.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROI / Impact -->
+        <section class="text-center space-y-12">
+            <div class="space-y-2">
+                <h2 class="text-3xl font-bold text-slate-800">Хэрэглээний үр дүн</h2>
+                <p class="text-slate-500">TUSS.IO-г нэвтрүүлснээр танай багт гарах бодит өөрчлөлт</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+                    <div class="text-3xl font-black text-tuss-blue mb-2">90%</div>
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-tighter">Хяналтын цаг хэмнэлт</div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+                    <div class="text-3xl font-black text-tuss-blue mb-2">0%</div>
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-tighter">Утгын зөрчилтэй гэрээ</div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+                    <div class="text-3xl font-black text-tuss-blue mb-2">100%</div>
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-tighter">Хуулийн нийцэл</div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+                    <div class="text-3xl font-black text-tuss-blue mb-2">24/7</div>
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-tighter">Автомат аудит</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Call to Action -->
+        <section class="bg-tuss-blue text-white rounded-[2rem] p-10 md:p-16 flex flex-col md:flex-row items-center gap-10">
+            <div class="flex-1 space-y-6">
+                <h2 class="text-4xl font-extrabold leading-tight">Бичиг баримтын маргааныг <br>түүх болгон үлдээе</h2>
+                <p class="text-blue-100">KW Mongolia-ийн мэргэжлийн стандартыг технологийн хүчээр хамгаалж, хэрэглэгчийн итгэлийг нэмэгдүүлээрэй.</p>
+                <div class="flex gap-4">
+                    <button class="bg-white text-tuss-blue px-8 py-3 rounded-full font-bold hover:bg-slate-100 transition">Демо үзэх</button>
+                    <button class="bg-blue-600 text-white border border-blue-400 px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition">Холбоо барих</button>
+                </div>
+            </div>
+            <div class="w-full md:w-1/3 bg-white/10 p-6 rounded-2xl backdrop-blur-md border border-white/20">
+                <canvas id="efficiencyChart" height="200"></canvas>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-gray-100 py-12">
+        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center text-sm text-slate-400">
+            <p>© 2024 TUSS.IO - Compliance Management Solution</p>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-tuss-blue transition">Facebook</a>
+                <a href="#" class="hover:text-tuss-blue transition">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const solutionData = {
+            manual: {
+                title: "Гараар хянах ачааллыг 0 болгох",
+                desc: "Менежер бүх гэрээг нэг нэгэнгүй унших шаардлагагүй. TUSS.IO гэрээг секундэд уншиж, хууль болон стандарттай харьцуулан зөвхөн 'алдаатай' хэсгүүдийг танд харуулна.",
+                valA: "Зуучлалын хөлсийг харилцагч талд бэлнээр төлж болно.",
+                valB: "СЗХ-ны журам: Бэлэн мөнгөний гүйлгээ 20 сая₮-өөс дээш бол заавал бүртгэнэ.",
+                result: "Шийдвэр: Заалтыг 'Бэлэн бусаар' болгож өөрчлөх шаардлагатай."
+            },
+            inconsistent: {
+                title: "Загварын нэгдмэл байдал",
+                desc: "Агент өөрийн дураар заалт нэмсэн тохиолдолд систем тэрхүү 'А' төслийг үндсэн 'Б' загвартай жишиж, яг аль үг, өгүүлбэр өөрчлөгдсөнийг тодотгоно.",
+                valA: "Хэрэв борлуулалт 3 сарын дотор хийгдээгүй бол гэрээг агент цуцалж болно.",
+                valB: "KW Standard: Гэрээ цуцлах эрх зөвхөн брокерт хадгалагдана.",
+                result: "Шийдвэр: Дотоод журам зөрчсөн тул зөвшөөрөхгүй."
+            },
+            vague: {
+                title: "Субъектив байдлыг илрүүлэх",
+                desc: "Маргаан үүсгэж болох тодорхойгүй үг хэллэгийг систем шүүж, утгыг нь тодорхой хэмжүүрт оруулахыг санал болгоно.",
+                valA: "Агент үл хөдлөхийн мэдээллийг аль болох шуурхай нийтэлнэ.",
+                valB: "Standard: Агент 12 цагийн дотор нийтлэх үүрэгтэй.",
+                result: "Шийдвэр: 'Шуурхай' гэх үгийг '12 цагийн дотор' гэж өөрчил."
+            },
+            logic: {
+                title: "Логик алдааны аудит",
+                desc: "Гэрээний доторх заалтууд бие биетэйгээ утгын хувьд зөрчилдөж байгаа эсэхийг (Logic Conflict) илрүүлж, маргаанаас сэргийлнэ.",
+                valA: "Заалт 5: Хөлс 3%. <br>Заалт 14: Нийт үнийн дүнгийн 2% нь шимтгэл байна.",
+                valB: "Standard: Гэрээний туршид шимтгэлийн хэмжээ тогтмол байх.",
+                result: "Шийдвэр: 3% болон 2% гэсэн хоёр өөр тоог нэгтгэх."
+            }
+        };
+
+        function showSolution(key) {
+            const initial = document.getElementById('solution-initial');
+            const content = document.getElementById('solution-content');
+            const panel = document.getElementById('solution-panel');
+            
+            initial.classList.add('hidden');
+            content.classList.remove('hidden');
+            panel.classList.add('solution-highlight');
+
+            const data = solutionData[key];
+            document.getElementById('sol-title').innerText = data.title;
+            document.getElementById('sol-desc').innerText = data.desc;
+            document.getElementById('val-a').innerHTML = data.valA;
+            document.getElementById('val-b').innerHTML = data.valB;
+            document.getElementById('sol-result').innerText = data.result;
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('efficiencyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Даваа', 'Мягмар', 'Лхагва', 'Пүрэв', 'Баасан'],
+                    datasets: [{
+                        label: 'Бичиг баримт боловсруулах хугацаа (мин)',
+                        data: [120, 110, 15, 10, 5],
+                        borderColor: '#ffffff',
+                        backgroundColor: 'rgba(255,255,255,0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false } 
+                    },
+                    scales: {
+                        x: { display: false },
+                        y: { display: false }
+                    }
+                }
+            });
+        }
+
+        window.onload = initChart;
+    </script>
+</body>
+</html>
